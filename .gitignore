@@ -1,0 +1,36 @@
+# Ignorowanie folderu node_modules
+node_modules/
+
+# Ignorowanie plików z danymi dotyczącymi konfiguracji środowiska (np. pliki .env)
+.env
+
+# Ignorowanie plików, które są generowane automatycznie
+*.log
+*.lock
+npm-debug.log*
+
+# Ignorowanie plików z konfiguracją środowiska deweloperskiego
+.vscode/
+.idea/
+
+# Ignorowanie plików wygenerowanych podczas budowy projektu
+/dist/
+/build/
+/out/
+
+# Ignorowanie plików konfiguracyjnych dla narzędzi
+*.config.js
+
+# Ignorowanie plików, które zawierają poufne informacje (np. hasła)
+*.key
+*.pem
+
+# Ignorowanie plików związanych z testami
+coverage/
+
+# Ignorowanie plików tymczasowych
+*.tmp
+*.temp
+
+# Ignorowanie plików wynikowych z analizy kodu
+*.eslintrc.*.js
