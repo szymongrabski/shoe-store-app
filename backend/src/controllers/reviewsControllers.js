@@ -37,34 +37,6 @@ async function getReviews(req, res) {
 
 }
 
-async function getReviewById(req, res) {
-    const reviewId = parseInt(req.params.reviewId)
-    const session = neo4jDriver.session();
-
-    const reviewExists = await helperFunctions.checkIfReviewExists(reviewId)
-    if(!reviewExists) {
-        return res.status(404).json({error: 'Review does not exist'})
-    }
-
-    const result = await session.run(
-        `
-        MATCH (r:Review)
-        WHERE id(r) = $reviewId
-        RETURN r
-        `,
-        {reviewId}
-    )
-
-    session.close()
-
-    const review = {
-        id: result.records[0].get('r').identity.low,
-        properties: result.records[0].get('r').properties
-    }
-    
-    res.send(200).json({review})
-}
-
 
 async function addReview(req, res) {
     const productId = parseInt(req.params.id);
@@ -175,7 +147,6 @@ async function deleteReview(req, res) {
 
 module.exports = {
     getReviews,
-    getReviewById,
     addReview,
     deleteReview
 }
