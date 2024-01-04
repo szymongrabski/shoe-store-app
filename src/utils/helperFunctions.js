@@ -58,11 +58,58 @@ function validateSex(sex) {
 }
 
 
+async function checkIfReviewExists(reviewId) {
+    const session = neo4jDriver.session();
+
+    try {
+        const result = await session.run(
+            `
+            MATCH (r:Review)
+            WHERE id(r) = $reviewId
+            RETURN r
+            `,
+            { reviewId }
+        );
+
+        session.close();
+
+        return result.records.length > 0;
+    } catch (error) {
+        console.error("Error checking review existence:", error);
+        throw error;
+    }
+}
+
+async function countProductReviews(productId) {
+    const session = neo4jDriver.session();
+
+    try {
+        const result = await session.run(
+            `
+            MATCH (p:Product)-[:HAS_REVIEW]->(r:Review)
+            WHERE id(p) = $productId
+            RETURN COUNT(r) AS reviewCount
+            `,
+            { productId }
+        );
+
+        session.close();
+
+        const reviewCount = result.records[0].get('reviewCount').toNumber();
+        return reviewCount;
+    } catch (error) {
+        console.error("Error while counting reviews:", error);
+        throw error;
+    }
+}
+
 module.exports = {
     checkIfProductExists,
     validateString,
     validateSizes,
     validatePrice,
     validateUrl,
-    validateSex
+    validateSex,
+    checkIfReviewExists,
+    countProductReviews
 }
