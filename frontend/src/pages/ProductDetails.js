@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import ReviewsList from '../components/ReviewsList';
 import ReviewsProvider from '../contexts/ReviewsContext';
 import ReviewForm from '../components/ReviewsForm';
+import ProductInfo from '../components/ProductInfo';
 
 const ProductDetails = () => {
     return (
@@ -12,6 +13,7 @@ const ProductDetails = () => {
                 <ReviewsList/>
                 <ReviewForm />
             </ReviewsProvider>
+            <ProductInfo />
         </div>
     );
 };
