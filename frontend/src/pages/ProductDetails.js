@@ -1,19 +1,21 @@
 import React from 'react';
 import Header from '../components/Header';
 import ReviewsList from '../components/ReviewsList';
-import ReviewsProvider from '../contexts/ReviewsContext';
 import ReviewForm from '../components/ReviewsForm';
 import ProductInfo from '../components/ProductInfo';
+import Rating from '../components/Rating';
+import ProductProvider from '../contexts/ProductContext.js';
 
 const ProductDetails = () => {
     return (
         <div>
             <Header />
-            <ReviewsProvider>
+            <ProductProvider>
+                <Rating />
                 <ReviewsList/>
                 <ReviewForm />
-            </ReviewsProvider>
-            <ProductInfo />
+                <ProductInfo />
+            </ProductProvider>
         </div>
     );
 };

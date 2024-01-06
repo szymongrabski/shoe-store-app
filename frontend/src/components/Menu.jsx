@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Menu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isHoover, setIsHoover] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsHoover(!isHoover);
   };
 
   return (
-    <div className="menu">
-      <button onClick={toggleMenu}>Menu</button>
-      {isOpen && (
-        <ul>
+    <div className='menu' onMouseEnter={toggleMenu} onMouseLeave={toggleMenu}>
+      <span className='menu-title'>Menu</span>
+      {isHoover && (
+        <ul className='menu-list'>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" className='menu-link'>Home</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart" className='menu-link'>Cart</Link>
           </li>
           <li>
-            <Link to="/admin">Admin</Link>
+            <Link to="/admin" className='menu-link'>Admin</Link>
           </li>
         </ul>
       )}

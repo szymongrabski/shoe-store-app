@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { ReviewsContext } from '../contexts/ReviewsContext';
+import { ProductContext } from '../contexts/ProductContext';
 
 const ReviewsList = () => {
-  const { reviews } = useContext(ReviewsContext)
+  const { reviews } = useContext(ProductContext)
   console.log(reviews)
   return (
     <div>

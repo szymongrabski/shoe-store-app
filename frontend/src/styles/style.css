@@ -6,16 +6,22 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background-color: rgb(233, 233, 233);
+  background-color: #eae2b7;
 }
   
 .header {
   display: flex;
-  justify-content: center;
+  justify-content:space-between;
   align-items: center;
   padding: 10px;
-  background-color: #b60707;
+  background-color: #d62828;
   color: #fff;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
   
 .logo img {
@@ -27,6 +33,30 @@ body {
 .name {
     font-weight: bold;
 }
+
+.menu {
+  margin-left: 10px;
+}
+
+.menu-list {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.menu-li {
+  color: white;
+  text-decoration: none;
+}
+
+.menu-link {
+  color: white; 
+  text-decoration: none; 
+}
+
+.menu-link:hover {
+  color: lightgray; 
+}
+
 
 .shoe-img {
   width: 200px;

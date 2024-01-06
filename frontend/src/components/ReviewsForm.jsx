@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { ReviewsContext } from '../contexts/ReviewsContext';
+import { ProductContext } from "../contexts/ProductContext.js"
 import { useParams } from 'react-router-dom';
 
 const ReviewForm = () => {
-  const { setReviews } = useContext(ReviewsContext);
+  const { getReviews, getRating } = useContext(ProductContext);
   const {id} = useParams()
   
   const formik = useFormik({
@@ -31,7 +31,8 @@ const ReviewForm = () => {
         const response = await axios.post(`http://localhost:8000/api/products/${id}/reviews`, newReview);
 
         if (response.status === 201) {
-            setReviews(prevValue => [...prevValue, response.data.review]);
+            getReviews()
+            getRating()
         }
 
         resetForm();

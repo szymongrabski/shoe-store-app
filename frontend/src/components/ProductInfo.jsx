@@ -10,8 +10,8 @@ const ProductInfo = () => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/products/${id}`);
-                if (response.data && response.data.product) {
-                    setProduct(response.data.product);
+                if (response.data) {
+                    setProduct(response.data);
                 } else {
                     throw new Error("Nie znaleziono produktu");
                 }
