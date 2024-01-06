@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { ProductContext } from "../contexts/ProductContext.js"
+import { ProductContext } from "../../contexts/ProductContext.js"
 import { useParams } from 'react-router-dom';
 
 const ReviewForm = () => {

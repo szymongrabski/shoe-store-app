@@ -9,11 +9,13 @@ const ProductProvider = ({ children }) => {
     const apiUrl = `http://localhost:8000/api/products/${id}`;
 
     const [product, setProduct] = useState(null);
+    const [sizes, setSizes] = useState([])
     const [reviews, setReviews] = useState([]);
     const [rating, setRating] = useState(null);
 
     useEffect(() => {
         getProduct();
+        getSizes();
         getReviews();
         getRating();
     }, []);
@@ -43,8 +45,13 @@ const ProductProvider = ({ children }) => {
         setRating(ratingData);
     };
 
+    const getSizes = async () => {
+        const sizesData = await fetchData('sizes');
+        setSizes(sizesData)
+    }
+
     return (
-        <ProductContext.Provider value={{ product, getProduct, reviews, getReviews, rating, getRating }}>
+        <ProductContext.Provider value={{ product, getProduct, sizes, getSizes, reviews, getReviews, rating, getRating }}>
             {children}
         </ProductContext.Provider>
     );

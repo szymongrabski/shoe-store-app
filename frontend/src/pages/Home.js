@@ -1,6 +1,6 @@
 import React from "react"
-import Header from '../components/Header'
-import ProductsList from "../components/ProductsList"
+import Header from '../components/header/Header'
+import ProductsList from "../components/home/ProductsList"
 
 const Home = () => {
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../components/Header';
-import ReviewsList from '../components/ReviewsList';
-import ReviewForm from '../components/ReviewsForm';
-import ProductInfo from '../components/ProductInfo';
-import Rating from '../components/Rating';
+import Header from '../components/header/Header.jsx';
+import ReviewsList from '../components/productDetails/ReviewsList.jsx';
+import ReviewForm from '../components/productDetails/ReviewsForm.jsx';
+import ProductInfo from '../components/productDetails/ProductInfo.jsx';
+import Rating from '../components/productDetails/Rating.jsx';
 import ProductProvider from '../contexts/ProductContext.js';
 
 const ProductDetails = () => {
