@@ -3,7 +3,7 @@ import { ProductContext } from '../../contexts/ProductContext';
 
 const ReviewsList = () => {
   const { reviews } = useContext(ProductContext)
-  console.log(reviews)
+  
   return (
     <div>
       {reviews.length > 0 ? 

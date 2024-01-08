@@ -1,9 +1,12 @@
+import Header from "../components/header/Header";
+import ShoppingCart from "../components/shoppingCart/ShoppingCart";
 const Cart = () => {
     return (
         <div>
-            Cart
+            <Header />
+            <ShoppingCart />
         </div>
     )
 }
 
-export default Cart
+export default Cart;

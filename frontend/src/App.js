@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import ProductsProvider from './contexts/ProductsContext';
+import ShoppingCartProvider from './contexts/ShoppingCartContext';
 import Home from './pages/Home'
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart'
@@ -11,16 +11,16 @@ import './styles/style.css'
 const App = () => {
 
   return (
-    <ProductsProvider>
-      <BrowserRouter>
-        <Routes>
+    <ShoppingCartProvider>
+        <BrowserRouter>
+          <Routes>
           <Route path={"/"} element={<Home/>}/>
           <Route path={"/productdetails/:id"} element={<ProductDetails/>}/>
           <Route path={"/cart"} element={<Cart/>}/>
           <Route path={"/admin"} element={<Admin/>}/>
-        </Routes>
-      </BrowserRouter>
-    </ProductsProvider>
+          </Routes>
+        </BrowserRouter>
+    </ShoppingCartProvider>
   );
 }
 

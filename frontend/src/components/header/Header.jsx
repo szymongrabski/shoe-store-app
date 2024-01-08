@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Menu from './Menu';
+import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const { calculateCartQuantity } = useContext(ShoppingCartContext)
+  const quantity = calculateCartQuantity()
   return (
     <header className='header'>
       <Menu />
@@ -11,6 +15,14 @@ const Header = () => {
           <span className='name'>SneakerStore</span>
         </nav>
       </div>
+      <Link to='/cart'>
+      <button>
+        Koszyk
+        <div>
+          {quantity}
+        </div>
+      </button>
+      </Link>
     </header>
   );
 }

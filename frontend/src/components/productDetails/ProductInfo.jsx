@@ -1,8 +1,9 @@
 import React, { useContext} from "react";
 import { ProductContext } from "../../contexts/ProductContext.js"
+import AddToCart from "../shoppingCart/AddToCart.jsx";
 
 const ProductInfo = () => {
-    const { product, sizes } = useContext(ProductContext)
+    const { product } = useContext(ProductContext)
 
     return (
         <div>
@@ -15,17 +16,7 @@ const ProductInfo = () => {
                     <p>{product.properties.color}</p>
                     <p>{product.properties.brand}</p>
                     <p>{product.properties.sex}</p>
-                    <div>
-                        <p>Rozmiary: </p>
-                        <ul>
-                            {sizes.map(size => (
-                                <li>
-                                    <span>Rozmiar: {size.properties.size} </span>
-                                    <span>Pozostało: {size.properties.amount}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <AddToCart productId={product.id} />
                 </div>
             ) : null}
         </div>
