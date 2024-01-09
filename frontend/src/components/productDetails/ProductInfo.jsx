@@ -16,7 +16,7 @@ const ProductInfo = () => {
                     <p>{product.properties.color}</p>
                     <p>{product.properties.brand}</p>
                     <p>{product.properties.sex}</p>
-                    <AddToCart productId={product.id} />
+                    <AddToCart productId ={ product.id } />
                 </div>
             ) : null}
         </div>

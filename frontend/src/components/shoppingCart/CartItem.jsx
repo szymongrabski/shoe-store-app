@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { fetchData } from "../../utils/api";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
+import { formatCurrency } from "../../utils/formatFunctions";
 
-export function CartItem({ id, order  }) {
-    const { increaseProductQuantity, decreaseProductQuantity, removeFromCart, setTotalPrice } = useContext(ShoppingCartContext)
+export function CartItem({ id, order }) {
+    const { increaseProductQuantity, decreaseProductQuantity, removeFromCart } = useContext(ShoppingCartContext)
     const [product, setProduct] = useState(null);
     const [productAmount, setProductAmount] = useState(0);
     const { size, amount } = order;
@@ -12,16 +13,6 @@ export function CartItem({ id, order  }) {
         getProduct()
         getProductAmount()
     }, [])
-
-    useEffect(() => {
-        if (product) {
-            const key = `${id}-${size}`
-            setTotalPrice(prevValue => ({
-                ...prevValue,
-                [key]: product.properties.price * amount
-            }))
-        }
-    }, [product, order])
 
     const getProduct = async () => {
         const product = await fetchData(`/products/${id}`);
@@ -38,7 +29,7 @@ export function CartItem({ id, order  }) {
         return (
             <div>
                 <p>
-                    {product.properties.title} - {size} - {amount} - {product.properties.price * amount} zł
+                    {product.properties.title} - {size} - {amount} - {formatCurrency(product.properties.price * amount)}
                 </p>
                 {amount < productAmount ? <button onClick={() => increaseProductQuantity(product.id, size)}>Dodaj</button> : null }
                 <button onClick={() => decreaseProductQuantity(product.id, size)}>Usuń jeden</button>

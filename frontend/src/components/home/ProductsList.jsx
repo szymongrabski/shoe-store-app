@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import Product from './Product'
-import { fetchData } from "../../utils/api"
+import { ProductsContext } from "../../contexts/ProductsContext"
 
 const ProductsList = () => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        getProducts()
-    }, []);
-
-    const getProducts = async () => {
-        const productsData = await fetchData('/products')
-        setProducts(productsData.products)
-    }
-
+    const { products } = useContext(ProductsContext)
+    
     return (
         <div>
             <ul>

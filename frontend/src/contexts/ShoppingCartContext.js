@@ -5,7 +5,6 @@ export const ShoppingCartContext = createContext({});
 
 export default function ShoppingCartProvider({ children }) {
     const [cartProducts, setCartProducts] = useLocalStorage('shopping-cart', []);
-    const [totalPrice, setTotalPrice] = useLocalStorage('total-price', {});
 
     const calculateCartQuantity = () => {
         return cartProducts.reduce((quantity, product) => {
@@ -13,7 +12,7 @@ export default function ShoppingCartProvider({ children }) {
         }, 0);
     };
 
-    const increaseProductQuantity = (id, size) => {
+    const increaseProductQuantity = (id, size ) => {
         setCartProducts(products => {
             const existingProduct = products.find(product => product.id === id && product.order.size === size);
             if (!existingProduct) {
@@ -57,7 +56,7 @@ export default function ShoppingCartProvider({ children }) {
     }
 
     return (
-        <ShoppingCartContext.Provider value={{ increaseProductQuantity, decreaseProductQuantity, removeFromCart, clearCart, calculateCartQuantity, totalPrice, setTotalPrice, cartProducts }}>
+        <ShoppingCartContext.Provider value={{ increaseProductQuantity, decreaseProductQuantity, removeFromCart, clearCart, calculateCartQuantity, cartProducts }}>
             {children}
         </ShoppingCartContext.Provider>
     );

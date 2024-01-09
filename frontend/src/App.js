@@ -6,12 +6,14 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart'
 import Admin from './pages/Admin';
 import './styles/style.css'
+import ProductsProvider from './contexts/ProductsContext';
 
 
 const App = () => {
 
   return (
     <ShoppingCartProvider>
+        <ProductsProvider>
         <BrowserRouter>
           <Routes>
           <Route path={"/"} element={<Home/>}/>
@@ -20,6 +22,7 @@ const App = () => {
           <Route path={"/admin"} element={<Admin/>}/>
           </Routes>
         </BrowserRouter>
+        </ProductsProvider>
     </ShoppingCartProvider>
   );
 }
