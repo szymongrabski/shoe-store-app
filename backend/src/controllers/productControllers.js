@@ -50,7 +50,7 @@ async function getProductById(req, res) {
             properties: result.records[0].get('p').properties
         };
 
-        res.status(200).json({ product });
+        res.status(200).json(product);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

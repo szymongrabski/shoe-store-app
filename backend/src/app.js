@@ -1,13 +1,21 @@
 const PORT = 8000
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const productRoutes = require('./routes/productRoutes')
 const reviewsRoutes = require('./routes/reviewsRoute')
+const ratingRoutes = require('./routes/ratingRoutes')
+const sizesRoutes = require('./routes/sizesRoutes')
 
+
+const app = express();
+
+app.use(cors())
 app.use(express.json());
 
 app.use('/api', productRoutes)
 app.use('/api', reviewsRoutes)
+app.use('/api', ratingRoutes)
+app.use('/api', sizesRoutes)
 
 app.listen(PORT, () => console.log('Server running on Port ' 
 + PORT))

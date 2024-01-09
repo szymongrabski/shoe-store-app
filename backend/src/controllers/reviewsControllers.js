@@ -29,7 +29,7 @@ async function getReviews(req, res) {
             };
         });
 
-        return res.status(200).json({reviews})
+        return res.status(200).json(reviews)
 
     } catch (error) {
         return res.status(500).json({error: error.message})
@@ -77,9 +77,14 @@ async function addReview(req, res) {
             { productId: productId, rate }
         );
 
-        session.close();
+        const newReview = {
+            id: reviewResult.records[0].get('r').identity.low,
+            properties: reviewResult.records[0].get('r').properties
+        };
 
-        res.status(201).json({ message: 'Review added to Neo4j'});
+        session.close();
+        res.status(201).json({ message: 'Review added to Neo4j', review: newReview });
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
