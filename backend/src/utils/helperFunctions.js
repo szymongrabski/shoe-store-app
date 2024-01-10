@@ -14,49 +14,73 @@ async function checkIfProductExists(productId) {
             { productId }
         );
 
-        session.close();
-
         return result.records.length > 0;
+
     } catch (error) {
         console.error("Error checking product existence:", error);
         throw error;
     }
 }
 
-function validateString(string) {
-    if (!string || typeof string !== 'string' || string.trim() === '') {
-        return false
-    }
-
-    return true
-}
-
-function validateSizes(sizes) {
-    if (!sizes || !Array.isArray(sizes)) {
-        return false;
-    }
-
-    for (const size of sizes) {
-        if (typeof size !== 'object' || typeof size.size !== 'number' || typeof size.amount !== 'number' || size.size < 0 || size.amount < 0) {
-            return false;
+async function checkIfProductsExist(ids) {
+    for (const id of ids) {
+        const productExists = await checkIfProductExists(id);
+        if (!productExists) {
+            return false; 
         }
     }
-
-    return true;
+    return true; 
 }
 
-function validatePrice(price) {
-    return typeof price === 'number' && price >= 0
+async function checkAvailability(id, size) {
+    const session = neo4jDriver.session();
+    const cypherQuery = `
+        MATCH (p:Product)-[:HAS_SIZE]->(s:Size {size: $size})
+        WHERE id(p) = $id
+        RETURN s.amount AS amount
+    `;
+    try {
+        const result = await session.run(cypherQuery, { id, size });
+        const amount = result.records[0].get('amount')
+        return amount
+    } catch (error) {
+        console.error("Error while checking availability:", error);
+        throw error;
+    }
 }
 
-function validateUrl(url) {
-    return validUrl.isUri(url)
+async function removeAmountFromSize(tx, productId, size, amount) {
+    const cypherQuery = `
+        MATCH (p:Product)-[:HAS_SIZE]->(s:Size {size: $size})
+        WHERE id(p) = $productId
+        SET s.amount = s.amount - $amount
+        RETURN p, s
+    `;
+
+    try {
+        const result = await tx.run(cypherQuery, { productId, size, amount });
+        return result.records;
+    } catch (error) {
+        console.error("Error while removing amount from", error);
+        throw error;
+    } 
 }
 
-function validateSex(sex) {
-    return validateString(sex) && (sex === 'male' || sex === 'female' || sex === 'unisex');
-}
+async function createOrderProductRelation (tx, orderId, productId, size, amount) {
+    const cypherQuery = `
+        MATCH (o:Order), (p:Product)
+        WHERE id(o) = $orderId AND id(p) = $productId
+        CREATE (o)-[:CONTAINS {size: $size, amount: $amount}]->(p)
+        RETURN o, p
+    `;
 
+    try {
+        const result = await tx.run(cypherQuery, {orderId, productId, size, amount})
+        return result.records
+    } catch (error) {
+        console.error("Error while creating Order Product relation", error)
+    }
+}
 
 async function checkIfReviewExists(reviewId) {
     const session = neo4jDriver.session();
@@ -71,9 +95,8 @@ async function checkIfReviewExists(reviewId) {
             { reviewId }
         );
 
-        session.close();
-
         return result.records.length > 0;
+
     } catch (error) {
         console.error("Error checking review existence:", error);
         throw error;
@@ -93,8 +116,6 @@ async function countProductReviews(productId) {
             { productId }
         );
 
-        session.close();
-
         const reviewCount = result.records[0].get('reviewCount').toNumber();
         return reviewCount;
     } catch (error) {
@@ -105,11 +126,10 @@ async function countProductReviews(productId) {
 
 module.exports = {
     checkIfProductExists,
-    validateString,
-    validateSizes,
-    validatePrice,
-    validateUrl,
-    validateSex,
+    checkIfProductsExist,
+    checkAvailability,
+    removeAmountFromSize,
+    createOrderProductRelation,
     checkIfReviewExists,
     countProductReviews
 }

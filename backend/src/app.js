@@ -5,7 +5,7 @@ const productRoutes = require('./routes/productRoutes')
 const reviewsRoutes = require('./routes/reviewsRoute')
 const ratingRoutes = require('./routes/ratingRoutes')
 const sizesRoutes = require('./routes/sizesRoutes')
-
+const orderRoutes = require('./routes/orderRoutes')
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use('/api', productRoutes)
 app.use('/api', reviewsRoutes)
 app.use('/api', ratingRoutes)
 app.use('/api', sizesRoutes)
+app.use('/api', orderRoutes)
 
 app.listen(PORT, () => console.log('Server running on Port ' 
 + PORT))

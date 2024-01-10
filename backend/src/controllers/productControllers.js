@@ -1,6 +1,14 @@
 const neo4jDriver = require('../neo4jConfig');
 const helperFunctions = require('../utils/helperFunctions')
 
+const {
+    validateString,
+    validateSizes,
+    validatePrice,
+    validateUrl,
+    validateSex,
+} = require('../utils/validationFunctions')
+
 async function getAllProducts(req, res) {
     const session = neo4jDriver.session();
     try {
@@ -64,31 +72,31 @@ async function addProduct(req, res) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
-    if (!helperFunctions.validateString(title)) {
+    if (!validateString(title)) {
         return res.status(400).json({error: 'Invalid title'});
     }
 
-    if (!helperFunctions.validateUrl(image)) {
+    if (!validateUrl(image)) {
         return res.status(400).json({error: 'Invalid image URL'});
     }
 
-    if (!helperFunctions.validateString(brand)) {
+    if (!validateString(brand)) {
         return res.status(400).json({error: 'Invalid brand'});
     }
 
-    if (!helperFunctions.validateString(description)) {
+    if (!validateString(description)) {
         return res.status(400).json({error: 'Invalid description'});
     }
 
-    if (!helperFunctions.validatePrice(price)) {
+    if (!validatePrice(price)) {
         return res.status(400).json({ error: 'Price should be a positive number' });
     }
 
-    if (!helperFunctions.validateSizes(sizes)) {
+    if (!validateSizes(sizes)) {
         return res.status(400).json({error: 'Invalid sizes'});
     }
 
-    if (!helperFunctions.validateSex(sex)) {
+    if (!validateSex(sex)) {
         return res.status(400).json({error: 'Invalid sex'});
     }
     
@@ -166,7 +174,7 @@ async function updateProduct(req, res) {
         const params = {productId};
 
         if (title) {
-            if (helperFunctions.validateString(title)) {
+            if (validateString(title)) {
                 updateQuery += 'p.title = $title, ';
                 params.title = title;
             } else {
@@ -175,7 +183,7 @@ async function updateProduct(req, res) {
         }
 
         if (image) {
-            if (helperFunctions.validateUrl(image)) {
+            if (validateUrl(image)) {
                 updateQuery += 'p.image = $image, ';
                 params.image = image;
             } else {
@@ -184,7 +192,7 @@ async function updateProduct(req, res) {
         }
 
         if (brand) {
-            if (helperFunctions.validateString(brand)) {
+            if (validateString(brand)) {
                 updateQuery += 'p.brand = $brand, ';
                 params.brand = brand;
             } else {
@@ -193,7 +201,7 @@ async function updateProduct(req, res) {
         }
 
         if (price) {
-            if (helperFunctions.validatePrice(price)) {
+            if (validatePrice(price)) {
                 updateQuery += 'p.price = $price, ';
                 params.price = price;
             } else {
@@ -202,7 +210,7 @@ async function updateProduct(req, res) {
         }
 
         if (description) {
-            if (helperFunctions.validateString(description)) {
+            if (validateString(description)) {
                 updateQuery += 'p.description = $description, ';
                 params.description = description;
             } else {
@@ -211,7 +219,7 @@ async function updateProduct(req, res) {
         }
 
         if (color) {
-            if (helperFunctions.validateString(color)) {
+            if (validateString(color)) {
                 updateQuery += 'p.color = $color, ';
                 params.color = color;
             } else {
@@ -220,7 +228,7 @@ async function updateProduct(req, res) {
         }
 
         if (sex) {
-            if (helperFunctions.validateSex(sex)) {
+            if (validateSex(sex)) {
                 updateQuery += 'p.sex = $sex, ';
                 params.sex = sex;
             } else {
