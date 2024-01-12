@@ -7,7 +7,7 @@ import Cart from './pages/Cart'
 import Admin from './pages/Admin';
 import './styles/style.css'
 import ProductsProvider from './contexts/ProductsContext';
-
+import ShoppingCartProvider2 from './reducers/cartReducer';
 
 const App = () => {
 

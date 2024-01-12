@@ -10,7 +10,7 @@ const AddToCart = ({ productId }) => {
     const [canIncrease, setCanIncrease] = useState(true)
 
     const getSizes = async () => {
-        const sizesData = await fetchData(`/products/${productId}/sizes`);
+        const sizesData = await fetchData(`/products/${productId}/sizes/available`);
         setSizes(sizesData)
         setSelectedSize(sizesData[0]?.properties.size || ''); 
         setSelectedAmount(sizesData[0]?.properties.amount || 0); 
@@ -24,6 +24,7 @@ const AddToCart = ({ productId }) => {
         const product = cartProducts.find(product => productId === product.id && product.order.size === selectedSize)
 
         if (product && product.order.amount > selectedAmount - 1) {
+            console.log(selectedAmount)
             setCanIncrease(false);
         } else {
             setCanIncrease(true);
@@ -31,21 +32,26 @@ const AddToCart = ({ productId }) => {
     }, [cartProducts, selectedSize, selectedAmount]);
 
     const handleSizeChange = (event) => {
-        setSelectedSize(event.target.value);
-        const amount = sizes.find(data => data.properties.size == event.target.value)?.properties.amount || 0;
-        setSelectedAmount(amount)
+        if (sizes) {
+            setSelectedSize(event.target.value);
+            const amount = sizes.find(data => data.properties.size == event.target.value)?.properties.amount || 0;
+            setSelectedAmount(amount)
+        }
     };
 
     return (
-    <div>
-        <select value={selectedSize} onChange={handleSizeChange}>
-            {sizes.map((size) => (
-                <option key={size.id} value={size.properties.size}>
-                    {size.properties.size}
-                </option>
-            ))}
-        </select>
-        {canIncrease ? <button onClick={() => increaseProductQuantity(productId, selectedSize)}>Dodaj do koszyka</button> : <p>Wyczerpano</p>}
+    <div className="add-to-cart-item">
+        <div>
+            <label>Rozmiar: </label>
+            <select value={selectedSize} onChange={handleSizeChange}>
+                {sizes.map((size) => (
+                    <option key={size.id} value={size.properties.size}>
+                        {size.properties.size}, Dostępne: {size.properties.amount}
+                    </option>
+                ))}
+            </select>            
+        </div>
+        {canIncrease ? <button className="btn add-btn" onClick={() => increaseProductQuantity(productId, selectedSize)}>Dodaj do koszyka</button> : <div className="error">Wyczerpano</div>}
     </div>
     );
 

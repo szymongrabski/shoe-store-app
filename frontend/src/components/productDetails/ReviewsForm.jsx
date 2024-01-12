@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ProductContext } from "../../contexts/ProductContext.js"
 import { useParams } from 'react-router-dom';
+import RatingMUI from '@mui/material/Rating';
 
 const ReviewForm = () => {
   const { getReviews, getRating } = useContext(ProductContext);
@@ -44,33 +45,39 @@ const ReviewForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="comment">Komentarz:</label>
-      <input
-        id="comment"
-        name="comment"
-        type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.comment}
-      />
-      {formik.touched.comment && formik.errors.comment ? (
-        <div>{formik.errors.comment}</div>
-      ) : null}
-
-      <label htmlFor="rate">Ocena:</label>
-      <input
-        id="rate"
-        name="rate"
-        type="number"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.rate}
-      />
-      {formik.touched.rate && formik.errors.rate ? (
-        <div>{formik.errors.rate}</div>
-      ) : null}
-
-      <button type="submit">Dodaj recenzję</button>
+      <div>
+        <div>
+          <label htmlFor="comment">Komentarz:</label>
+        </div>
+        <input
+          id="comment"
+          name="comment"
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.comment}
+        />
+        {formik.touched.comment && formik.errors.comment ? (
+          <div className='error'>{formik.errors.comment}</div>
+        ) : null}
+      </div>
+      <div>
+        <div>
+          <label htmlFor="rate">Ocena:</label>
+        </div>
+        <RatingMUI
+          id="rate"
+          name="rate"
+          type="number"
+           onChange={(event, value) => formik.setFieldValue("rate", value)}
+          onBlur={formik.handleBlur}
+          value={formik.values.rate}
+        />
+        {formik.touched.rate && formik.errors.rate ? (
+          <div className='error'>{formik.errors.rate}</div>
+        ) : null}
+      </div>
+    <button className="btn add-btn" type="submit">Dodaj recenzję</button>
     </form>
   );
 };

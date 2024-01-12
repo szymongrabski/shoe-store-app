@@ -20,25 +20,37 @@ export function CartItem({ id, order }) {
     }
 
     const getProductAmount = async () => {
-        const sizesData = await fetchData(`/products/${id}/sizes`);
+        const sizesData = await fetchData(`/products/${id}/sizes/available`);
         const amount = sizesData.find(data => data.properties.size == size)?.properties.amount || 0;
         setProductAmount(amount)
     }
 
     if (product) {
         return (
-            <div>
-                <p>
-                    {product.properties.title} - {size} - {amount} - {formatCurrency(product.properties.price * amount)}
-                </p>
-                {amount < productAmount ? <button onClick={() => increaseProductQuantity(product.id, size)}>Dodaj</button> : null }
-                <button onClick={() => decreaseProductQuantity(product.id, size)}>Usuń jeden</button>
-                <button onClick={() => removeFromCart(product.id, size)}>Usuń</button>
+            <div className="cart-item">
+                <div className="card">
+                    <div className="card-content">
+                        <h3>{product.properties.title}</h3>
+                        <img className="img cart-img" src={product.properties.image}/>
+                        <p>Rozmiar: {size}, Ilość: {amount}</p>
+                    </div>
+                </div>
+                <div className="cart-buttons">
+                    <div>
+                        {amount < productAmount ? <button className="btn add-btn" onClick={() =>increaseProductQuantity(product.id, size)}>Dodaj</button> : null }
+                    </div>
+                    <div>
+                        <button className="btn del-btn" onClick={() => decreaseProductQuantity(product.id, size)}>Usuń jeden</button>
+                    </div>
+                    <div>
+                        <button className="btn del-btn" onClick={() => removeFromCart(product.id, size)}>Usuń</button>
+                    </div>
+                </div>
             </div>
         )
     } else {
         return (
-            <p>Ładowanie...</p>
+            <div className="error">Ładowanie...</div>
         )
     }
 

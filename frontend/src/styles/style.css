@@ -8,20 +8,136 @@ body {
   font-family: 'Lato', sans-serif;
   background-color: #eae2b7;
 }
-  
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Pierwszy wiersz dla Header, drugi dla reszty, trzeci dla Footer */
+  min-height: 100vh;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover {
+  color: lightgray;
+}
+
+.error {
+  text-align: center;
+  color: #d62828;
+  font-size: small;
+}
+
+.btn {
+  border: none;
+  padding: 0.5em;
+  border-radius: 20px;
+  color: white
+}
+
+.btn:hover {
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.add-btn {
+  background-color: #007bff;
+}
+
+.del-btn {
+  background-color: #d62828;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+  gap: 2em;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 1em;
+  border-radius: 30px;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 1em;
+}
+
+.card-content a {
+  display: block;
+  text-decoration: none;
+  color: #007bff;
+  margin-bottom: 10px;
+  margin: auto;
+}
+
+.card-content a:hover {
+  text-decoration: underline;
+}
+
+.card-content input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.card-content label {
+  font-size: 14px;
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* HEADER */
+
 .header {
   display: flex;
-  justify-content:space-between;
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px;
   background-color: #d62828;
+  padding: 10px 2em;
   color: #fff;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.footer {
+  width: 100%;
+  background-color: #003049;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  font-weight: bold;
+  color: white;
 }
   
 .logo img {
@@ -30,36 +146,120 @@ body {
     filter: brightness(0) invert(1);
 }
 
-.name {
-    font-weight: bold;
+.cart-btn {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.menu {
-  margin-left: 10px;
+.cart-btn div:first-child {
+  margin-right: 8px;
 }
 
-.menu-list {
-  list-style: none;
-  margin-left: 10px;
-}
-
-.menu-li {
+.cart-btn div:last-child {
+  position: absolute;
+  top: 12px;
+  right: -5px;
+  background-color: #ff5722;
   color: white;
-  text-decoration: none;
+  border-radius: 50%;
+  padding: 6px 10px;
+  font-size: 14px; 
 }
 
-.menu-link {
-  color: white; 
-  text-decoration: none; 
+.empty-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
-.menu-link:hover {
-  color: lightgray; 
-}
+  
+/* HOME */
 
-
-.shoe-img {
+.product-img {
   height: 200px;
   object-fit: cover;
 }
-  
+
+/* CART */
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-item {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-card {
+  display: flex;
+  justify-content: center;
+  background-color: #003049;
+  padding: 1em;
+  margin: 1em;
+  color: white;
+  border-radius: 30px;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.cart-img {
+  height: 100px;
+}
+
+.cart-buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.add-to-cart-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 0.5em;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Product details  */
+
+.product-details {
+  display: flex;
+  margin: 2em 10%;
+  gap: 2em;
+  justify-content: space-around;
+}
+
+.product-details-img {
+  height: 250px;
+}
+
+.reviews-card {
+  background-color: #003049;
+  color: white;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  list-style: none;
+}
+

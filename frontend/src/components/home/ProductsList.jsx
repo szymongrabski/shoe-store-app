@@ -6,8 +6,8 @@ const ProductsList = () => {
     const { products } = useContext(ProductsContext)
     
     return (
-        <div>
-            <ul>
+        <div className="card-items">
+            <ul className="card-list">
                 {products.map(product => (
                     <li key={product.id}>
                         <Product product={product}/>
