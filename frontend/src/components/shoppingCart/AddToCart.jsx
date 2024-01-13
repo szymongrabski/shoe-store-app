@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from "react"
+import React, {useState, useContext, useEffect, useLayoutEffect} from "react"
 import { fetchData } from "../../utils/api";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
@@ -7,12 +7,12 @@ const AddToCart = ({ productId }) => {
     const [sizes, setSizes] = useState([]);
     const [selectedSize, setSelectedSize] = useState(0);
     const [selectedAmount, setSelectedAmount] = useState(0);
-    const [canIncrease, setCanIncrease] = useState(true)
+    const [canIncrease, setCanIncrease] = useState(false)
 
     const getSizes = async () => {
         const sizesData = await fetchData(`/products/${productId}/sizes/available`);
         setSizes(sizesData)
-        setSelectedSize(sizesData[0]?.properties.size || ''); 
+        setSelectedSize(sizesData[0]?.properties.size || 0); 
         setSelectedAmount(sizesData[0]?.properties.amount || 0); 
     }
 
@@ -22,18 +22,19 @@ const AddToCart = ({ productId }) => {
 
     useEffect(() => {
         const product = cartProducts.find(product => productId === product.id && product.order.size === selectedSize)
-
         if (product && product.order.amount > selectedAmount - 1) {
-            console.log(selectedAmount)
+            setCanIncrease(false);
+        } else if (selectedSize === 0){
             setCanIncrease(false);
         } else {
-            setCanIncrease(true);
+            setCanIncrease(true)
         }
     }, [cartProducts, selectedSize, selectedAmount]);
 
+    
     const handleSizeChange = (event) => {
         if (sizes) {
-            setSelectedSize(event.target.value);
+            setSelectedSize(parseInt(event.target.value));
             const amount = sizes.find(data => data.properties.size == event.target.value)?.properties.amount || 0;
             setSelectedAmount(amount)
         }
@@ -42,8 +43,8 @@ const AddToCart = ({ productId }) => {
     return (
     <div className="add-to-cart-item">
         <div>
-            <label>Rozmiar: </label>
-            <select value={selectedSize} onChange={handleSizeChange}>
+            <span>Rozmiar: </span>
+            <select name="size" value={selectedSize} onChange={handleSizeChange}>
                 {sizes.map((size) => (
                     <option key={size.id} value={size.properties.size}>
                         {size.properties.size}, Dostępne: {size.properties.amount}

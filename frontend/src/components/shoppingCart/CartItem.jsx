@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { fetchData } from "../../utils/api";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
-import { formatCurrency } from "../../utils/formatFunctions";
 
 export function CartItem({ id, order }) {
     const { increaseProductQuantity, decreaseProductQuantity, removeFromCart } = useContext(ShoppingCartContext)

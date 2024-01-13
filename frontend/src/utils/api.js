@@ -11,3 +11,13 @@ export const fetchData = async (endpoint) => {
         return null;
     }
 };
+
+export const fetchCategory = async (endpoint) => {
+    try {
+        const response = await axios.get(`${apiUrl}/products/category/${endpoint}`);
+        return response.data.categoryValues;
+    } catch (error) {
+        console.error(`Błąd podczas pobierania kategori`)
+        return null;
+    }
+}

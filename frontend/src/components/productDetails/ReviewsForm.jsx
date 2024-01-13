@@ -46,9 +46,7 @@ const ReviewForm = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div>
-        <div>
-          <label htmlFor="comment">Komentarz:</label>
-        </div>
+        <p>Komentarz:</p>
         <input
           id="comment"
           name="comment"
@@ -62,9 +60,7 @@ const ReviewForm = () => {
         ) : null}
       </div>
       <div>
-        <div>
-          <label htmlFor="rate">Ocena:</label>
-        </div>
+        <p>Ocena:</p>
         <RatingMUI
           id="rate"
           name="rate"
@@ -77,7 +73,9 @@ const ReviewForm = () => {
           <div className='error'>{formik.errors.rate}</div>
         ) : null}
       </div>
-    <button className="btn add-btn" type="submit">Dodaj recenzję</button>
+      <div className='submit'>
+        <button className="btn add-btn" type="submit">Dodaj recenzję</button>
+      </div>
     </form>
   );
 };

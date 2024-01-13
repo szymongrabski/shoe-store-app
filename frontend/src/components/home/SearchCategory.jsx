@@ -20,7 +20,7 @@ const SearchCategory = ({ category, categoryArray }) => {
 
   return (
     <div>
-      <select ref={selectRef} onChange={handleCategoryChange}>
+      <select name={category} ref={selectRef} onChange={handleCategoryChange}>
         <option value="">{category}</option>
         {categoryArray.map((item) => (
           <option key={item} value={item}>

@@ -12,20 +12,19 @@ const Rating = () => {
     return (
         <div>
             <h2>Ocena</h2>
-            <ul className="reviews-list">
-                <li>
+                <div>
                     {averageRating ? (
                         <div className="rating">Średnia ocena: <RatingMUI name="read-only" value={formatRating(averageRating)} readOnly /></div>
                     ) : (
                         <span>Brak dostępnych ocen</span>
                     )}
-                </li>
-                <li>
+                </div>
+                <div>
                     {totalRatings && (
                         <div>Ilość ocen: {formatNeo4jNumber(totalRatings)}</div>
                     )}
-                </li>
-            </ul>
+                </div>
+    
         </div>
     );
 }
