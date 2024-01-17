@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart'
 import Admin from './pages/Admin';
-import './styles/style.css'
+import './styles/style.scss'
 import ProductsProvider from './contexts/ProductsContext';
 
 const App = () => {

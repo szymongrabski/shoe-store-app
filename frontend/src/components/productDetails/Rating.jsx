@@ -14,7 +14,7 @@ const Rating = () => {
             <h2>Ocena</h2>
                 <div>
                     {averageRating ? (
-                        <div className="rating">Średnia ocena: <RatingMUI name="read-only" value={formatRating(averageRating)} readOnly /></div>
+                        <div className="rating">Średnia ocena: <RatingMUI name="read-only" value={formatRating(averageRating)} readOnly precision={0.5} /></div>
                     ) : (
                         <span>Brak dostępnych ocen</span>
                     )}

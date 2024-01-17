@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Slider, Typography } from "@mui/material";
+import { Slider } from "@mui/material";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { fetchData } from "../../utils/api";
 
 const PriceSlider = () => {
   const { dispatch } = useContext(ProductsContext);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState([]);
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
 
@@ -13,6 +13,7 @@ const PriceSlider = () => {
     const result = await fetchData('products/prices/minMax')
     setMinPrice(result['minPrice'])
     setMaxPrice(result['maxPrice'])
+    setValue([result['minPrice'], result['maxPrice']])
   }
 
   useEffect(() => {
@@ -29,7 +30,9 @@ const PriceSlider = () => {
 
   if (minPrice && maxPrice) {
     return (
-        <div className="slider">
+      <div className="slider">
+        <span>Cena: </span>
+        <div className="slider-content">
             <Slider
                 value={value}
                 onChange={handleSliderChange}
@@ -39,6 +42,7 @@ const PriceSlider = () => {
                 step={20}
             />
         </div>
+      </div>
       );
   }
 };

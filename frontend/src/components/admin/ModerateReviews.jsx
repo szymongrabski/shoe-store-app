@@ -30,7 +30,7 @@ const ModerateReviews = ({ productId }) => {
             {reviews && reviews.map(review => {
                 return (
                     <li key={review.id}>
-                        <div>
+                        <div className="rating">
                             <RatingMUI name="read-only" value={formatRating(review.properties.rate)} readOnly/> - {review.properties.comment}
                         </div>
                         <div className="submit">

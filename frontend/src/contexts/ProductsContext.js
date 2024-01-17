@@ -8,6 +8,8 @@ const ACTIONS = {
   FILTER_PRODUCTS: "FILTER_PRODUCTS",
   FILTER_PRODUCTS_BY_PRICE: "FILTER_PRODUCTS_BY_PRICE",
   CLEAR_FILTER: 'CLEAR_FILTER',
+  SORT_PRODUCTS_BY_PRICE: 'SORT_PRODUCTS_BY_PRICE',
+  SORT_FILTERED_PRODUCTS_BY_PRICE: 'SORT_FILTERED_PRODUCTS_BY_PRICE'
 };
 
 const productsReducer = (state, action) => {
@@ -23,15 +25,29 @@ const productsReducer = (state, action) => {
     case ACTIONS.FILTER_PRODUCTS_BY_PRICE:
         const { price } = action.payload;
         const priceFilteredProducts = state.products.filter((product) => {
-            return product.properties['price'] >= price ;
+            return product.properties['price'] >= price[0] && product.properties['price'] <= price[1] ;
         })
         return {...state, filteredProducts: priceFilteredProducts};
     case ACTIONS.CLEAR_FILTER:
-        return { ...state, filteredProducts: [] }; 
+        return { ...state, filteredProducts: [] };
+    case ACTIONS.SORT_PRODUCTS_BY_PRICE:
+      const { sortOrder } = action.payload;
+      const priceSortedProducts = sortProductsByPrice([...state.products], sortOrder);
+      return {...state, products: priceSortedProducts};
+    case ACTIONS.SORT_FILTERED_PRODUCTS_BY_PRICE:
+      const { filteredSortOrder } = action.payload;
+      const priceSortedFilteredProducts = sortProductsByPrice([...state.filteredProducts], filteredSortOrder);
+      return {...state, filteredProducts: priceSortedFilteredProducts};
     default:
       return state;
   }
 };
+
+const sortProductsByPrice = (products, sortOrder) => {
+  return products.slice().sort((a, b) => {
+    return sortOrder === 'asc' ? a.properties['price'] - b.properties['price'] : b.properties['price'] - a.properties['price'];
+  })
+}
 
 const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(productsReducer, {

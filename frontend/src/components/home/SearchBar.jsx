@@ -3,6 +3,7 @@ import { fetchCategory } from "../../utils/api";
 import SearchCategory from "./SearchCategory";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import PriceSlider from "./PriceSlider";
+import SortItem from "./SortItem";
 
 const SearchBar = () => {
     const { state, dispatch } = useContext(ProductsContext);
@@ -36,7 +37,7 @@ const SearchBar = () => {
 
     return (
         <div className="search-bar">
-            <div className="search-bar-content">
+            <div className="content">
                 <div>
                     <button className="btn add-btn" onClick={() => dispatch({type: "CLEAR_FILTER"})}>Wszystkie</button>
                 </div>
@@ -46,6 +47,8 @@ const SearchBar = () => {
 
                 <SearchCategory category="sex" categoryArray={sexes}/>
                 
+                <SortItem />
+
                 <PriceSlider/>
             </div>
         </div>

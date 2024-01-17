@@ -5,7 +5,7 @@ import AddProduct from "./AddProduct"
 
 
 const AdminProductsList = () => {
-    const { state, getProducts } = useContext(ProductsContext)
+    const { state } = useContext(ProductsContext)
     const [showProducts, setShowProducts] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
 

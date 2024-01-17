@@ -49,9 +49,11 @@ export function RegisterForm({ totalPrice }) {
         switch (formik.values.deliveryType) {
             case 'courier':
                 setTransactionFee(25);
+                formik.setFieldValue('address', '');
                 break;
             case 'paczkomat':
                 setTransactionFee(10);
+                formik.setFieldValue('address', '');
                 break;
             case 'pickup':
                 setTransactionFee(0);
