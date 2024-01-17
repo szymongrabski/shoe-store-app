@@ -249,10 +249,69 @@ async function updateProduct(req, res) {
     }
 }
 
+async function getAllByCategory(req, res) {
+    const session = neo4jDriver.session();
+    const category = req.params.category; 
+    let query
+    try {
+
+        switch (category) {
+            case 'color':
+                query = `MATCH (p:Product) RETURN DISTINCT p.color as categoryValues`
+                break;
+            case 'sex':
+                query = `MATCH (p:Product) RETURN DISTINCT p.sex as categoryValues`
+                break;
+            case 'brand':
+                query = `MATCH (p:Product) RETURN DISTINCT p.brand as categoryValues`
+                break;
+            case 'price':
+                query = `MATCH (p:Product) RETURN DISTINCT p.price as categoryValues`
+                break;
+            default:
+                return res.status(400).json({ error: 'Invalid category' })
+
+        }
+        
+        const result = await session.run(query)
+        
+        const categoryValues = result.records.map(el => el.get('categoryValues'))
+        
+
+        session.close();
+
+        res.status(200).json({ categoryValues });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+async function getMinMaxProductsPrice(req, res) {
+    const session = neo4jDriver.session();
+
+    try {
+        const result = await session.run(`
+        MATCH (p:Product)
+        RETURN MIN(p.price) AS minPrice, MAX(p.price) AS maxPrice
+        `);
+
+        session.close()
+
+        const { minPrice, maxPrice } = result.records[0].toObject();
+
+        res.status(200).json({ minPrice, maxPrice });
+    } catch (error) {
+        console.error("Error fetching min-max product prices:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
     addProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getAllByCategory,
+    getMinMaxProductsPrice
 }

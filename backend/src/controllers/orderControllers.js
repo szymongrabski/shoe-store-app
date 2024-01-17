@@ -20,7 +20,7 @@ async function addOrder(req, res) {
     const productIds = order.map(product => product.id)
     const tx = session.beginTransaction();
     
-    if (!email || !order || !deliveryType || !deliveryFee || !totalPrice || !address) {
+    if (!email || !order || !deliveryType || !totalPrice || !address) {
         return res.status(400).json({error: 'All fields are required' })
     }
 
