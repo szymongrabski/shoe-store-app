@@ -10,7 +10,8 @@ const AddToCart = ({ productId }) => {
     const [canIncrease, setCanIncrease] = useState(false)
 
     const getSizes = async () => {
-        const sizesData = await fetchData(`/products/${productId}/sizes/available`);
+        const sizes = await fetchData(`/products/${productId}/sizes/available`);
+        const sizesData = sizes.sort((a, b) => a.properties.size - b.properties.size)
         setSizes(sizesData)
         setSelectedSize(sizesData[0]?.properties.size || 0); 
         setSelectedAmount(sizesData[0]?.properties.amount || 0); 

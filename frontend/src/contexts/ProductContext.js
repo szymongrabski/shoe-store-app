@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../utils/api";
 
@@ -12,7 +12,7 @@ const ProductProvider = ({ children }) => {
     const [reviews, setReviews] = useState([]);
     const [rating, setRating] = useState(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getProduct();
         getSizes();
         getReviews();
@@ -36,8 +36,9 @@ const ProductProvider = ({ children }) => {
     };
 
     const getSizes = async () => {
-        const sizesData = await fetchData(`/products/${id}/sizes`);
-        setSizes(sizesData)
+        const data = await fetchData(`/products/${id}/sizes`);
+        const sizes = data.sort((a, b) => a.properties.size - b.properties.size )
+        setSizes(sizes)
     }
 
     return (
