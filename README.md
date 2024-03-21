@@ -1,2 +1,34 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/vAiI5XiT)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13290258&assignment_repo_type=AssignmentRepo)
+# Shoe Store Application
+
+## Description
+The Shoe Store Application is an online store where users can browse, search, and purchase shoes. It features a backend built with Express, a frontend built with React, and a Neo4j database. Users can access updated reviews, ratings, and shoe availability, managed by the backend. Additionally, users can place orders, sort shoes by price, size, ratings, and manage their shopping cart.
+
+## Project Structure
+- `backend/` - folder containing the backend code based on Express
+- `frontend/` - folder containing the frontend code based on React
+
+## Backend (Express)
+The backend of the application handles product management, order managmreview management, and communication with the Neo4j database.
+
+### Product Management
+- Manages shoe availability, pricing, and stock.
+- Handles CRUD operations for shoe products.
+
+### Review Management
+- Manages shoe reviews and ratings.
+- Allows users to submit, update, and delete reviews.
+
+### Neo4j Database Communication
+- Communicates with Neo4j using Cypher queries.
+
+## Frontend (React)
+The frontend of the application provides a user-friendly interface for browsing shoes, placing orders, and interacting with reviews.
+
+### User Interface
+- Provides search and filtering options for easy navigation.
+
+### Order Placement
+- Manages the shopping cart for adding and removing items.
+
+
+
