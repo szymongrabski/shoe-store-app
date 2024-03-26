@@ -1,14 +1,14 @@
 # Shoe Store Application
 
 ## Description
-The Shoe Store Application is an online store where users can browse, search, and purchase shoes. It features a backend built with Express, a frontend built with React, and a Neo4j database. Users can access updated reviews, ratings, and shoe availability, managed by the backend. Additionally, users can place orders, sort shoes by price, size, ratings, and manage their shopping cart.
+SneakerStore is an online store where users can browse, search, and purchase shoes. It features a backend built with Express, a frontend built with React, and a Neo4j database. Users can access updated reviews, ratings, and shoe availability, managed by the backend. Additionally, users can place orders, sort shoes by price, size, ratings, and manage their shopping cart.
 
 ## Project Structure
 - `backend/` - folder containing the backend code based on Express
 - `frontend/` - folder containing the frontend code based on React
 
 ## Backend (Express)
-The backend of the application handles product management, order managmreview management, and communication with the Neo4j database.
+The backend of the application handles product management, reviews managment, order management, and communication with the Neo4j database.
 
 ### Product Management
 - Manages shoe availability, pricing, and stock.
