@@ -1,6 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 // Zmienne
-$primary-color: #2b2d42;
-$seconadary-color: #8d99ae;
+$primary-color: #11151C;
+$seconadary-color: #212D40;
 $background-color: #edf2f4;
 $blue-color: #007bff;
 $red-color: #ef233c;
@@ -17,8 +23,9 @@ $shadow-color: rgba(0, 0, 0, 0.1);
 
 // Strona główna
 body {
-    font-family: 'Lato', sans-serif;
-    background-color: $background-color;
+    font-family: 'Raleway', sans-serif;
+    // background: linear-gradient(to right, #7D4E57, #D66853);
+    background-color: whitesmoke;
 }
 
 .wrapper {
@@ -42,138 +49,6 @@ body {
     font-size: small;
 }
 
-.img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-select {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-}
-  
-select option {
-    background-color: #fff;
-    color: #333;
-}
-  
-select:hover {
-    border-color: #555;
-}
-  
-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-  
-
-// Przyciski
-.btn {
-    border: none;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 20px;
-    color: $text-color;
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-}
-
-.add-btn {
-    background-color: $blue-color;
-}
-
-.del-btn {
-    background-color: $red-color;
-}
-
-// Karty
-.card-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 2em 0;
-    gap: 2em;
-}
-
-
-.card {
-    flex: 1;
-    max-width: 400px;
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    padding: 1em;
-    border-radius: 30px;
-    box-shadow: 0px 4px 6px -1px $shadow-color, 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-    .card-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 1em;
-        padding: 1em;
-        
-        a {
-            display: block;
-            text-decoration: none;
-            color: #007bff;
-            margin-bottom: 10px;
-            margin: auto;
-        }
-          
-        a:hover {
-            text-decoration: underline;
-        }
-          
-        input {
-            width: 100%;
-            padding: 5px;
-            border: none;
-            border-radius: 20px;
-            font-size: 16px;
-        }
-          
-        label {
-            font-size: 14px;
-        }
-          
-        h2 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    }
-}
-
-// Nagłówek
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $primary-color;
-    color: $text-color;
-    padding: 10px 2em;
-    box-shadow: 0px 4px 6px -1px $shadow-color, 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-// Stopka
-.footer {
-    background-color: $primary-color;
-    color: $text-color;
-    padding: 2em;
-    text-align: center;
-}
 
 // Logo
 .logo {
@@ -197,202 +72,57 @@ select:focus {
     border: none;
     cursor: pointer;
     display: flex;
+    margin-right: 1em;
     align-items: center;
 }
 
 .cart-btn div:last-child {
     position: absolute;
     top: 12px;
-    right: -5px;
+    left: 20px;
     background-color: #d90429;
     color: $text-color;
     border-radius: 50%;
     padding: 6px 10px;
-    font-size: 14px; 
-}
-
-.empty-cart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-// Home
-.product-img {
-    height: 200px;
-    object-fit: cover;
-}
-
-.product-id {
-    text-align: center;
-}
-
-.search-bar {
-    background-color: $seconadary-color;
-    padding: 1em;
-    .content {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: 1em;
-    }
-    .slider {
-        display: flex;
-        align-items: center;
-        gap: 1em;
-        .slider-content {
-            width: 5em;
-        }
-    }
-}
-
-
-// Koszyk
-.shopping-cart {
-    display: flex;
-    justify-content: center;
-    gap: 3em;
-    margin: 2em 0;
-}
-
-.cart {
-    background-color: $seconadary-color;
-    border-radius: 30px;
-    box-shadow: 0px 4px 6px -1px $shadow-color, 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-    padding: 3em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.cart-item {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    justify-content: center;
-    align-items: center;
-}
-
-.order-item {
-    display: flex;
-    font-size: 20px;
-    font-weight: bold;
-    gap: 1em;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-card {
-    background-color: $primary-color;
-    margin: 1em;
-    padding: 1em;
-    color: $text-color;
-    border-radius: 30px;
-    box-shadow: 0px 4px 6px -1px $shadow-color, 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
-
-    .form-card-content {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
-        padding: 1em;
-    }
-
-    .form-card-field {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 2em;
-    }
-
-    input {
-        width: 100%;
-        padding: 5px;
-        border: none;
-        border-radius: 20px;
-        font-size: 16px;
-    }
-
-    label {
-        font-size: 20px;
-    }
-
-    p {
-        font-size: 20px;
-        font-weight: bold;
-    }
-}
-
-.submit {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.cart-img {
-    height: 100px;
-}
-
-.cart-buttons {
-    display: flex;
-    gap: 0.5em;
-    justify-content: center;
-}
-
-.add-to-cart-item{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
-    padding: 0.5em;
-}
-
-.rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5em;
-}
-
-// Administracja
-.admin-buttons {
-    display: flex;
-    padding: 1em;
-    justify-content: flex-end;
-    gap: 2em;
-    background-color: $seconadary-color;
-}
-
-.admin-form-content {
-    display: flex;
-    justify-content: space-around;
-}
-
-.admin-form-container {
-    display: flex;
-    justify-content: center;
-}
-
-// Product details 
-
-.product-details {
-    display: flex;
-    margin: 2em 10%;
-    gap: 2em;
-    justify-content: space-around;
-
-    .product-details-img {
-        height: 250px;
-    }
+    font-size: 12px; 
 }
   
-.reviews-card {
-    background-color: $seconadary-color;
+
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.select {
+    padding: 0.5em 3em 0.5em 1.5em;
+    border: none;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    width: 100%;
+    background-color: #2b2d42;
     color: white;
+    cursor: pointer;
 }
-  
-.reviews-list {
+
+.custom-arrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    height: 100%;
+    width: 2em;
+    pointer-events: none;
+    background-color: #27233A;
     display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    list-style: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.slick-slide > div {
+    margin: 0 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: $primary-color !important; 
 }

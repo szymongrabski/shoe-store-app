@@ -10,9 +10,11 @@ const Home = () => {
         <div className="wrapper">
             <div>
                 <Header />
-                <SearchBar />
             </div>
-            <ProductsList />
+            <div className="flex flex-col">
+                <SearchBar />
+                <ProductsList />
+            </div>
             <Footer />
         </div>
     )

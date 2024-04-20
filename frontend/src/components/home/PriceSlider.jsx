@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Slider } from "@mui/material";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { fetchData } from "../../utils/api";
+import { FaDollarSign } from 'react-icons/fa';
 
 const PriceSlider = () => {
   const { dispatch } = useContext(ProductsContext);
@@ -30,9 +31,9 @@ const PriceSlider = () => {
 
   if (minPrice && maxPrice) {
     return (
-      <div className="slider">
-        <span>Cena: </span>
-        <div className="slider-content">
+      <div className="flex items-center px-2 pr-4 gap-x-3  w-3/4 bg-[#2b2d42]">
+        <FaDollarSign className="mb-1" size={22} color="white"/>
+        <div className="w-[100%]">
             <Slider
                 value={value}
                 onChange={handleSliderChange}

@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { fetchData } from "../../utils/api";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
+import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 export function CartItem({ id, order }) {
     const { increaseProductQuantity, decreaseProductQuantity, removeFromCart } = useContext(ShoppingCartContext)
@@ -26,30 +27,38 @@ export function CartItem({ id, order }) {
 
     if (product) {
         return (
-            <div className="cart-item">
-                <div className="card">
-                    <div className="card-content">
-                        <h3>{product.properties.title}</h3>
-                        <img className="img cart-img" src={product.properties.image}/>
-                        <p>Rozmiar: {size}, Ilość: {amount}</p>
-                    </div>
+            <div className="flex bg-white shadow-md justify-between">
+                <div className= "h-[200px] mb-4 overflow-hidden" >
+                    <img className="w-full h-full object-cover" src={product.properties.image}/>  
                 </div>
-                <div className="cart-buttons">
+                <div className="bg-gray-300 flex flex-col justify-between p-3 w-[300px]">
+                    <h3 className="font-bold text-lg">{product.properties.title}</h3>
                     <div>
-                        {amount < productAmount ? <button className="btn add-btn" onClick={() =>increaseProductQuantity(product.id, size)}>Dodaj</button> : null }
+                        <span>Price: </span><span className="font-bold">{product.properties.price}</span>
+                        <p>Size: {size}</p>
+                        <p>Amount: {amount}</p>
                     </div>
-                    <div>
-                        <button className="btn del-btn" onClick={() => decreaseProductQuantity(product.id, size)}>Usuń jeden</button>
-                    </div>
-                    <div>
-                        <button className="btn del-btn" onClick={() => removeFromCart(product.id, size)}>Usuń</button>
+                    <div className="flex justify-center gap-x-2">
+                        <div>
+                            {amount < productAmount ? 
+                                <button className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() =>increaseProductQuantity(product.id, size)}>
+                                    <AiOutlinePlus size={22}/>
+                                </button> : null 
+                            }
+                        </div>
+                        <div>
+                            <button className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => decreaseProductQuantity(product.id, size)}><AiOutlineMinus size={22}/></button>
+                        </div>
+                        <div>
+                            <button className="btn bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={() => removeFromCart(product.id, size)}><AiOutlineClose size={22}/></button>
+                        </div>
                     </div>
                 </div>
             </div>
         )
     } else {
         return (
-            <div className="error">Ładowanie...</div>
+            <div className="error">Loading...</div>
         )
     }
 

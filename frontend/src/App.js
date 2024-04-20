@@ -4,7 +4,6 @@ import ShoppingCartProvider from './contexts/ShoppingCartContext';
 import Home from './pages/Home'
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart'
-import Admin from './pages/Admin';
 import './styles/style.scss'
 import ProductsProvider from './contexts/ProductsContext';
 
@@ -18,7 +17,6 @@ const App = () => {
           <Route path={"/"} element={<Home/>}/>
           <Route path={"/productdetails/:id"} element={<ProductDetails/>}/>
           <Route path={"/cart"} element={<Cart/>}/>
-          <Route path={"/admin"} element={<Admin/>}/>
           </Routes>
         </BrowserRouter>
         </ProductsProvider>

@@ -10,21 +10,22 @@ const Rating = () => {
     const totalRatings = rating ? rating.properties.totalRatings : null;
 
     return (
-        <div>
-            <h2>Ocena</h2>
+        <div className="">
                 <div>
                     {averageRating ? (
-                        <div className="rating">Średnia ocena: <RatingMUI name="read-only" value={formatRating(averageRating)} readOnly precision={0.5} /></div>
+                        <RatingMUI name="read-only" value={formatRating(averageRating)} readOnly precision={0.5} />
                     ) : (
-                        <span>Brak dostępnych ocen</span>
+                        <span>No reviews yet.</span>
                     )}
                 </div>
                 <div>
                     {totalRatings && (
-                        <div>Ilość ocen: {formatNeo4jNumber(totalRatings)}</div>
+                        <div className=" text-black flex gap-x-1 items-center">
+                            <span>Number of reviews:</span>
+                            <span className="font-bold">{formatNeo4jNumber(totalRatings)}</span>
+                        </div>
                     )}
                 </div>
-    
         </div>
     );
 }

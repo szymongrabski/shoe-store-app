@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 import { CartItem } from "./CartItem";
 import { ProductsContext } from "../../contexts/ProductsContext";
@@ -8,7 +8,6 @@ import { formatCurrency } from "../../utils/formatFunctions";
 export default function ShoppingCart() {
   const { clearCart, cartProducts } = useContext(ShoppingCartContext);
   const { state } = useContext(ProductsContext);
-  const [showRegisterForm, setShowRegisterForm] = useState(false);
 
   const totalPrice = useMemo(() => {
     return cartProducts.reduce((totalPrice, cartProduct) => {
@@ -21,34 +20,28 @@ export default function ShoppingCart() {
   return (
     <>
       {cartProducts.length !== 0 ? (
-        <div className="shopping-cart">
-          <div className="cart">
-            <ul className="card-list">
+        <div className="flex w-[100%] justify-around">
+          <div className="bg-secondary p-4 flex flex-col justify-between">
+            <ul className="flex flex-col gap-y-3">
               {cartProducts.map((product) => (
                 <li key={`${product.id}-${product.order.size}`}>
                   <CartItem id={product.id} order={product.order} />
                 </li>
               ))}
             </ul>
-            <div className="order-item">
-              <div>Suma: {formatCurrency(totalPrice)} </div>
-              <button className="btn del-btn" onClick={() => clearCart()}>
-                Wyczyść
-              </button>
-              <button
-                className="btn add-btn"
-                onClick={() =>
-                  setShowRegisterForm((prevValue) => !prevValue)
-                }
-              >
-                {showRegisterForm ? "Anuluj" : "Złóż zamówienie"}
-              </button>
+            <div className="flex justify-between mt-4 items-center">
+              <div className="text-gray-300 text-lg">In total: {formatCurrency(totalPrice)} </div>
+                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => clearCart()}>
+                  Clear cart
+                </button>
             </div>
           </div>
-          <div>{showRegisterForm && <RegisterForm totalPrice={totalPrice} />}</div>
+          <div> 
+            <RegisterForm totalPrice={totalPrice} />
+          </div>
         </div>
       ) : (
-        <div className="empty-cart">Brak produktów w koszyku</div>
+        <div className="text-lg font-bold text-center m-auto">Cart is empty!</div>
       )}
     </>
   );

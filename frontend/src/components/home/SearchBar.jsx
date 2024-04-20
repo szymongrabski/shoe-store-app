@@ -36,20 +36,26 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="search-bar">
-            <div className="content">
-                <div>
-                    <button className="btn add-btn" onClick={() => dispatch({type: "CLEAR_FILTER"})}>Wszystkie</button>
+        <div className="bg-secondary fixed w-[100%] z-10">
+            <div className="">
+                <div className="flex items-center gap-2 p-3">
+                    <div className="w-[100%]">
+                        <button 
+                            className="w-[100%] p-2 rounded-full bg-btn-col text-white rounded-full shadow-md p-3 transition duration-300 ease-in-out hover:bg-btn-hover" 
+                            onClick={() => dispatch({type: "CLEAR_FILTER"})}>
+                                Show all
+                            </button>
+                    </div>
+                    <SearchCategory category="color" categoryArray={colors} />
+
+                    <SearchCategory category="brand" categoryArray={brands}/>
+
+                    <SearchCategory category="sex" categoryArray={sexes}/>
+                    
+                    <SortItem />
+
+                    <PriceSlider/>
                 </div>
-                <SearchCategory category="color" categoryArray={colors} />
-
-                <SearchCategory category="brand" categoryArray={brands}/>
-
-                <SearchCategory category="sex" categoryArray={sexes}/>
-                
-                <SortItem />
-
-                <PriceSlider/>
             </div>
         </div>
     );

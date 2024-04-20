@@ -1,6 +1,8 @@
-import React, {useState, useContext, useEffect, useLayoutEffect} from "react"
+import React, {useState, useContext, useEffect } from "react"
 import { fetchData } from "../../utils/api";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
+import { FiChevronsDown } from "react-icons/fi";
+import AddButton from "./AddButton";
 
 const AddToCart = ({ productId }) => {
     const { increaseProductQuantity, cartProducts } = useContext(ShoppingCartContext)
@@ -42,18 +44,27 @@ const AddToCart = ({ productId }) => {
     };
 
     return (
-    <div className="add-to-cart-item">
-        <div>
-            <span>Rozmiar: </span>
-            <select name="size" value={selectedSize} onChange={handleSizeChange}>
-                {sizes.map((size) => (
-                    <option key={size.id} value={size.properties.size}>
-                        {size.properties.size}, Dostępne: {size.properties.amount}
-                    </option>
-                ))}
-            </select>            
+    <div className="flex items-center justify-around">
+        <div className="flex gap-2 items-center">
+            <p className="font-lg text-gray-400">Size:</p>
+            <div className="custom-select">
+                <select className="select" name="size" value={selectedSize} onChange={handleSizeChange}>
+                    {sizes.map((size) => (
+                        <option key={size.id} value={size.properties.size}>
+                            {size.properties.size}
+                        </option>
+                    ))}
+                </select>
+                <span className="custom-arrow">
+                    <FiChevronsDown size={24} color="white"/>
+                </span>
+            </div>
+            <div className="flex justify-center gap-x-3 text-gray-700">
+            </div>          
         </div>
-        {canIncrease ? <button className="btn add-btn" onClick={() => increaseProductQuantity(productId, selectedSize)}>Dodaj do koszyka</button> : <div className="error">Wyczerpano</div>}
+        {canIncrease ? 
+            <AddButton productId={productId} size={selectedSize} />: <div className="text-sm text-red-600">Out of stock</div>
+        }
     </div>
     );
 

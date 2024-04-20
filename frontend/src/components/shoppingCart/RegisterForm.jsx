@@ -67,34 +67,35 @@ export function RegisterForm({ totalPrice }) {
 
 
     return (
-        <div className='form-card'>
-            <form className='form-card-content' onSubmit={formik.handleSubmit}>
-                <FormField formik={formik} name="email" label="Email" type="email" />
+        <div className='bg-white shadow-lg p-3 rounded-lg m-3'>
+            <form onSubmit={formik.handleSubmit} className='flex flex-col gap-3'>
+                <FormField formik={formik} name="email" label="Email address" type="email" />
                 <div>
-                    <div className='form-card-field'>
-                        <label htmlFor="deliveryType">Typ dostawy:</label>
+                    <div>
+                        <label className="font-medium text-gray-700" htmlFor="deliveryType">Delivery Type:</label>
                         <select
                             id="deliveryType"
                             name="deliveryType"
                             onChange={formik.handleChange}
                             value={formik.values.deliveryType}
+                            className='bg-white text-black w-full rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400 border-gray-300'
                         >
-                            <option value="">Wybierz typ dostawy</option>
-                            <option value="courier">Kurier</option>
+                            <option value="">Choose delivery type</option>
+                            <option value="courier">Courier</option>
                             <option value="paczkomat">Paczkomat</option>
-                            <option value="pickup">Odbiór osobisty</option>
+                            <option value="pickup">Personal pickup</option>
                         </select>
                     </div>
                     {formik.touched.deliveryType && formik.errors.deliveryType ? (
                         <div className='error'>{formik.errors.deliveryType}</div>
                     ) : null}
                     <div>
-                        <p>Opłata: {transactionFee}</p>
+                        <p className='text-sm py-3 pl-3 text-gray-700'>Transaction Fee: {transactionFee} zł</p>
                     </div>
                 </div>
                 <div>
-                    <div className='form-card-field'>
-                        <label htmlFor="address">Adres dostawy:</label>
+                    <div>
+                        <label className="font-medium text-gray-700" htmlFor="address">Adres dostawy:</label>
                         <input
                             id="address"
                             name="address"
@@ -102,17 +103,18 @@ export function RegisterForm({ totalPrice }) {
                             value={formik.values.address}
                             readOnly={formik.values.deliveryType === 'pickup'}
                             autoComplete="address-line1" 
+                            className='w-full border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-400'
                         />
                     </div>
                     {formik.touched.address && formik.errors.address ? (
-                            <div>{formik.errors.address}</div>
+                            <div className='error'>{formik.errors.address}</div>
                         ) : null}
                 </div>
-                <div className='form-card-field'>
-                    <p>Łączna wartość:</p> <p>{formatCurrency(totalPrice + transactionFee)}</p>
+                <div className='text-right font-bold text-gray-700'>
+                    <p>In total:</p> <p>{formatCurrency(totalPrice + transactionFee)}</p>
                 </div>
                 <div className='submit'>
-                    <button className="btn add-btn" type="submit">Wyślij</button>
+                    <button className="w-full bg-btn-col text-white rounded-full shadow-md p-3 transition duration-300 ease-in-out hover:bg-btn-hover " type="submit">Submit</button>
                 </div>
             </form>
         </div>
