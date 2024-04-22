@@ -95,7 +95,7 @@ export function RegisterForm({ totalPrice }) {
                 </div>
                 <div>
                     <div>
-                        <label className="font-medium text-gray-700" htmlFor="address">Adres dostawy:</label>
+                        <label className="font-medium text-gray-700" htmlFor="address">Delivery address:</label>
                         <input
                             id="address"
                             name="address"
