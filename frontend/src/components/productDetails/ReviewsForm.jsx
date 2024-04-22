@@ -61,7 +61,7 @@ const ReviewForm = () => {
         ) : null}
       </div>
       <div>
-        <label htmlFor="rate" className="block text-gray-200 font-bold">Rate:</label>
+        <span lassName="block text-gray-200 font-bold">Rate:</span>
         <RatingMUI
           id="rate"
           name="rate"
