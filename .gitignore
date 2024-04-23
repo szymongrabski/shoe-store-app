@@ -1,0 +1,5 @@
+# Ignorowanie folderu node_modules
+node_modules/
+
+# Ignorowanie plików z danymi dotyczącymi konfiguracji środowiska (np. pliki .env)
+.env

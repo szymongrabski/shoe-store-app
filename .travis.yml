@@ -1,0 +1,16 @@
+language: generic 
+
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t szymongrabski/react-test -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true szymongrabski/react-test npm test
+
+after_succes:
+  - docker build -t szymongrabski/sneakerstore-frontend ./frontend
+  - docker build -t szymongrabski/sneakerstore-nginx ./nginx
+  - docker build -t szymongrabski/sneakerstore-backend ./backend

@@ -12,11 +12,11 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 
-app.use('/api', productRoutes)
-app.use('/api', reviewsRoutes)
-app.use('/api', ratingRoutes)
-app.use('/api', sizesRoutes)
-app.use('/api', orderRoutes)
+app.use(productRoutes)
+app.use(reviewsRoutes)
+app.use(ratingRoutes)
+app.use(sizesRoutes)
+app.use(orderRoutes)
 
 app.listen(PORT, () => console.log('Server running on Port ' 
 + PORT))
