@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx: 
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  neo4j:
+    image: 'neo4j:latest'
+    volumes:
+      - C:/neo4j/data:/data
+      - C:/neo4j/logs:/logs
+      - C:/neo4j/import:/var/lib/neo4j/import
+      - C:/neo4j/plugins:/plugins
+    environment:
+      NEO4J_AUTH: ${DB_USERNAME}/${DB_PASSWORD}
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+  backend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    env_file:
+      - ./backend/src/.env
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+  frontend:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    environment:
+      - WDS_SOCKET_PORT=0
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
