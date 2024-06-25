@@ -23,7 +23,6 @@ export function RegisterForm({ totalPrice }) {
             address: Yup.string().required('Pole wymagane'),
         }),
         onSubmit: async (values, { resetForm }) => {
-            console.log("submituje")
             const newOrder = {
                 email: values.email,
                 order: cartProducts,
@@ -33,7 +32,6 @@ export function RegisterForm({ totalPrice }) {
                 address: values.address
             }
             try {
-                console.log("wchodze")
                 const response = await postData(`/products/order`, newOrder, keycloak.token);
                 console.log(response)
                 if (response.status === 201) {

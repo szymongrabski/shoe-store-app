@@ -1,9 +1,10 @@
 import axios from "axios";
 
+const port = "http://localhost:8000"
 
 export const fetchData = async (endpoint, accessToken) => {
     try {
-        const response = await axios.get(`/api/${endpoint}`, {
+        const response = await axios.get(`${port}${endpoint}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -17,7 +18,7 @@ export const fetchData = async (endpoint, accessToken) => {
 
 export const fetchCategory = async (endpoint, accessToken) => {
     try {
-        const response = await axios.get(`/api/products/category/${endpoint}`, {
+        const response = await axios.get(`${port}/products/category/${endpoint}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -31,7 +32,7 @@ export const fetchCategory = async (endpoint, accessToken) => {
 
 export const deleteData = async (endpoint, accessToken) => {
     try {
-        const response = await axios.delete(`/api/${endpoint}`, {
+        const response = await axios.delete(`${port}${endpoint}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -45,7 +46,7 @@ export const deleteData = async (endpoint, accessToken) => {
 
 export const postData = async (endpoint, data, accessToken) => {
     try {
-        const response = await axios.post(`/api/${endpoint}`, data, {
+        const response = await axios.post(`${port}${endpoint}`, data, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
