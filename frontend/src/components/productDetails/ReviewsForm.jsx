@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { ProductContext } from "../../contexts/ProductContext.js";
-import { useParams } from 'react-router-dom';
 import RatingMUI from '@mui/material/Rating';
+import { useKeycloak } from '@react-keycloak/web';
+
+import { ProductContext } from "../../contexts/ProductContext.js";
+import { postData } from '../../utils/api.js';
+
 
 const ReviewForm = () => {
   const { getReviews, getRating } = useContext(ProductContext);
   const { id } = useParams();
+  const { keycloak } = useKeycloak();
+
+
+  const isClient = keycloak.authenticated && keycloak.hasRealmRole('client');
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +36,7 @@ const ReviewForm = () => {
           rate: values.rate,
         };
 
-        const response = await axios.post(`http://localhost:8000/api/products/${id}/reviews`, newReview);
+        const response = await postData(`/products/${id}/reviews`, newReview, keycloak.token)
 
         if (response.status === 201) {
           getReviews();
@@ -43,7 +50,7 @@ const ReviewForm = () => {
     },
   });
 
-  return (
+  return ( isClient && 
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3 p-3">
       <div>
         <label htmlFor="comment" className="block text-gray-200 font-bold mb-2">Comment:</label>
@@ -61,19 +68,22 @@ const ReviewForm = () => {
         ) : null}
       </div>
       <div>
-        <span lassName="block text-gray-200 font-bold">Rate:</span>
-        <RatingMUI
-          id="rate"
-          name="rate"
-          type="number"
-          onChange={(event, value) => formik.setFieldValue("rate", value)}
-          onBlur={formik.handleBlur}
-          value={formik.values.rate}
-          className='bg-gray-100 w-full border-none flex justify-center'
-        />
-        {formik.touched.rate && formik.errors.rate ? (
-          <div className="text-sm text-red-600">{formik.errors.rate}</div>
-        ) : null}
+        <span className="block text-gray-200 font-bold">Rate:</span>
+        <div className='flex justify-center'>
+          <RatingMUI
+            id="rate"
+            name="rate"
+            type="number"
+            onChange={(event, value) => formik.setFieldValue("rate", value)}
+            onBlur={formik.handleBlur}
+            value={formik.values.rate}
+            size="large"
+            className= 'bg-secondary border-none'
+          />
+          {formik.touched.rate && formik.errors.rate ? (
+            <div className="text-sm text-red-600">{formik.errors.rate}</div>
+          ) : null}
+        </div>
       </div>
       <div className='flex justify-end'>
         <button type="submit" className="bg-btn-col text-white rounded-full shadow-md p-2 transition duration-300 ease-in-out hover:bg-btn-hover">

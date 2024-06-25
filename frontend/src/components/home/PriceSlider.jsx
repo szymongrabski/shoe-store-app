@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Slider } from "@mui/material";
+import { FaDollarSign } from 'react-icons/fa';
+
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { fetchData } from "../../utils/api";
-import { FaDollarSign } from 'react-icons/fa';
 
 const PriceSlider = () => {
   const { dispatch } = useContext(ProductsContext);
@@ -11,7 +12,7 @@ const PriceSlider = () => {
   const [maxPrice, setMaxPrice] = useState(null);
 
   async function getMinMax() {
-    const result = await fetchData('products/prices/minMax')
+    const result = await fetchData('/products/prices/minMax')
     setMinPrice(result['minPrice'])
     setMaxPrice(result['maxPrice'])
     setValue([result['minPrice'], result['maxPrice']])

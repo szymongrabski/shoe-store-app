@@ -1,11 +1,12 @@
 import React, { useContext, useRef } from "react";
-import { ProductsContext } from "../../contexts/ProductsContext";
-
 import { FiChevronsDown } from 'react-icons/fi';
+
+import { ProductsContext } from "../../contexts/ProductsContext";
 
 const SearchCategory = ({ category, categoryArray }) => {
   const { dispatch } = useContext(ProductsContext);
   const selectRef = useRef(null);
+  
   const handleCategoryChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue !== "") {

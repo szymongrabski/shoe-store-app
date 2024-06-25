@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
-import { ProductsContext } from "../../contexts/ProductsContext";
 import { FiChevronsDown } from "react-icons/fi";
+
+import { ProductsContext } from "../../contexts/ProductsContext";
 
 const SortItem = () => {
   const { state, dispatch } = useContext(ProductsContext);

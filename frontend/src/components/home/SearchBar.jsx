@@ -1,16 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
-import { fetchCategory } from "../../utils/api";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useKeycloak } from "@react-keycloak/web";
+import { Link } from 'react-router-dom';
+
 import SearchCategory from "./SearchCategory";
-import { ProductsContext } from "../../contexts/ProductsContext";
 import PriceSlider from "./PriceSlider";
 import SortItem from "./SortItem";
+import { ProductsContext } from "../../contexts/ProductsContext";
+import { fetchCategory } from "../../utils/api";
+import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 
 const SearchBar = () => {
+    const { calculateCartQuantity } = useContext(ShoppingCartContext);
+    const quantity = calculateCartQuantity();
+
     const { state, dispatch } = useContext(ProductsContext);
     const [colors, setColors] = useState([]);
     const [brands, setBrands] = useState([]);
     const [sexes, setSexes] = useState([]);
     const [prices, setPrices] = useState([]);
+
+    const { keycloak } = useKeycloak();
+
+    const isClient = keycloak.authenticated && keycloak.hasRealmRole("client");
 
     useEffect(() => {
         getAll();
@@ -41,7 +53,7 @@ const SearchBar = () => {
                 <div className="flex items-center gap-2 p-3">
                     <div className="w-[100%]">
                         <button 
-                            className="w-[100%] p-2 rounded-full bg-btn-col text-white rounded-full shadow-md p-3 transition duration-300 ease-in-out hover:bg-btn-hover" 
+                            className="w-[100%] rounded-full bg-btn-col text-white shadow-md p-3 transition duration-300 ease-in-out hover:bg-btn-hover" 
                             onClick={() => dispatch({type: "CLEAR_FILTER"})}>
                                 Show all
                             </button>
@@ -55,6 +67,20 @@ const SearchBar = () => {
                     <SortItem />
 
                     <PriceSlider/>
+
+                    {isClient && (
+                        <Link to='/cart'>
+                            <button className='cart-btn'>
+                                <div>
+                                    <ShoppingCartIcon sx={{ color: 'white' }} fontSize="large"/>
+                                </div>
+                                <div>
+                                    {quantity}
+                                </div>
+                            </button>
+                        </Link>
+                    )}
+                    
                 </div>
             </div>
         </div>

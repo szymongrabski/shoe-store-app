@@ -1,5 +1,19 @@
-version: "3"
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.0
+    ports:
+      - 8080:8080
+    command: start-dev
+    environment:
+      - KC_PROXY_HEADERS=xforwarded
+      - KC_HTTP_ENABLED=true
+      - KC_PROXY=edge
+      - KC_HOSTNAME_STRICT=false
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_LOG_LEVEL=INFO
+    volumes:
+      - ./keycloak-auth/keycloak-data-volume:/opt/keycloak/data/
   neo4j:
     image: 'neo4j:latest'
     environment:

@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { formatCurrency } from '../../utils/formatFunctions';
 import FormField from '../FormField';
+import { postData } from '../../utils/api';
+import { useKeycloak } from '@react-keycloak/web';
 
 export function RegisterForm({ totalPrice }) {
+    const { keycloak } = useKeycloak();
     const { cartProducts, clearCart } = useContext(ShoppingCartContext)
     const [transactionFee, setTransactionFee] = useState(0)
     const formik = useFormik({
@@ -21,7 +23,7 @@ export function RegisterForm({ totalPrice }) {
             address: Yup.string().required('Pole wymagane'),
         }),
         onSubmit: async (values, { resetForm }) => {
-            console.log(values.email, cartProducts, values.deliveryType, transactionFee, totalPrice, values.address)
+            console.log("submituje")
             const newOrder = {
                 email: values.email,
                 order: cartProducts,
@@ -31,16 +33,17 @@ export function RegisterForm({ totalPrice }) {
                 address: values.address
             }
             try {
-                const response = await axios.post(`http://localhost:8000/api/products/order`, newOrder);
-
+                console.log("wchodze")
+                const response = await postData(`/products/order`, newOrder, keycloak.token);
+                console.log(response)
                 if (response.status === 201) {
-                    alert("Zamówienie zostało przyjęte do realizacji");
+                    alert("Order accepted");
                     resetForm()
                     clearCart()
                 }
             } catch (error) {
                 console.error('Błąd podczas dodawania zamówienia', error.response.data)
-                alert("Zamówienie nie powiodło się. Spróbuj ponownie lub skontaktuj się z obsługą klienta.");
+                alert("Something went wrong...");
             }
         },
     });

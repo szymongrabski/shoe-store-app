@@ -1,28 +1,27 @@
-import React, { useContext } from 'react';
-import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useKeycloak } from "@react-keycloak/web";
+
+import Login from '../Login';
 
 const Header = () => {
-  const { calculateCartQuantity } = useContext(ShoppingCartContext)
-  const quantity = calculateCartQuantity()
+  const { keycloak } = useKeycloak();
+
+  const isAdmin = keycloak.authenticated && keycloak.hasRealmRole("admin");
+
   return (
     <div className='w-[100%] h-[70px]'>
       <header className='fixed flex z-10 items-center bg-primary justify-between px-5 w-[100%]'>
+        {isAdmin && (
+          <Link to="/admin" className="logo link">
+            <span className='name'>Admin</span>
+          </Link>
+        )}
         <Link to="/" className="logo link">
           <img src="https://cdn-icons-png.flaticon.com/512/5219/5219656.png" alt="sneaker-icon" />
           <span className='name'>SneakerStore</span>
         </Link>
-        <Link to='/cart'>
-        <button className='cart-btn'>
-          <div>
-            <ShoppingCartIcon sx={{ color: 'white' }} fontSize="large"/>
-          </div>
-          <div>
-            {quantity}
-          </div>
-        </button>
-        </Link>
+        <Login />
       </header>
     </div>
   );

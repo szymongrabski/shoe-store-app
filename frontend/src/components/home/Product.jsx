@@ -1,21 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+
 import AddToCart from "../shoppingCart/AddToCart";
 
 const Product = ({ product }) => {
-    const [hovered, setHovered] = useState(false);
-
-    const handleHover = () => {
-        setHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setHovered(false);
-    };
 
     if (product) {
         return (
-            <div className="bg-white p-5 rounded-lg shadow-lg h-[400px] w-[350px]" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave}>
+            <div className="bg-white p-5 rounded-lg shadow-lg h-[400px] w-[350px]">
                 <div className="flex flex-col h-[100%] justify-between">
                     <div className="h-[200px] mb-4 overflow-hidden">
                         <img className="w-full h-full object-cover" src={product.properties.image} alt={product.properties.title} />

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import Product from './Product';
-import { ProductsContext } from "../../contexts/ProductsContext";
 import ReactPaginate from 'react-paginate';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+
+import Product from './Product';
+import { ProductsContext } from "../../contexts/ProductsContext";
 
 const ProductsList = () => {
     const { state } = useContext(ProductsContext);

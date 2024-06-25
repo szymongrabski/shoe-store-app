@@ -15,6 +15,7 @@ const {
 const neo4jDriver = require('../neo4jConfig');
 
 async function addOrder(req, res) {
+    console.log("odebrałem order!")
     const session = neo4jDriver.session()
     const {email, order, deliveryType, deliveryFee, totalPrice, address} = req.body;
     const productIds = order.map(product => product.id)
